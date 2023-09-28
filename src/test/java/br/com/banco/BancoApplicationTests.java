@@ -1,6 +1,7 @@
 package br.com.banco;
 
 import br.com.banco.controllers.BancoController;
+import br.com.banco.models.Transferencia;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -75,4 +77,22 @@ class BancoApplicationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].nomeOperadorTransacao").value("Beltrano")); // Verifica se o Json tem o campo Beltrano
     }
 
+    @Test
+    public void testBuscarTodosFiltros() throws Exception {
+        // Representar uma data e hora e o nome do operador
+        LocalDateTime dataInicial = LocalDateTime.parse("2023-09-01T00:00:00");
+        LocalDateTime dataFinal = LocalDateTime.parse("2023-09-30T23:59:59");
+        String nomeOperadorTransacao = "Beltrano";
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/dados")
+                        .param("dataInicial", dataInicial.toString()) // Passa a data inicial
+                        .param("dataFinal", dataFinal.toString())     // Passa a data final
+                        .param("nomeOperadorTransacao", nomeOperadorTransacao)) // Passa o nomeOperadorTransacao
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+
+    }
 }
+
+

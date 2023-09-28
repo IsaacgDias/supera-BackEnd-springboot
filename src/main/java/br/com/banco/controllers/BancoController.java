@@ -52,4 +52,15 @@ public class BancoController {
         return transferenciaService.buscarTransferenciasDoOperador(nomeOperadorTransacao);
     }
 
+    // Caso o usuário selecionar todos os filtros
+    // chave = dataInicial valor = 2019-01-01T00:00:00 / chave = dataFinal valor = 2021-05-30T23:59:59 / chave = nomeOperadorTransacao valor = Beltrano
+    @GetMapping("/dados")
+    public List<Transferencia> buscarTodosFiltros(
+            @RequestParam("dataInicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
+            @RequestParam("dataFinal") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal,
+            @RequestParam String nomeOperadorTransacao) {
+
+            return transferenciaService.buscarTodosFiltros(dataInicial, dataFinal, nomeOperadorTransacao);
+    }
+
 }

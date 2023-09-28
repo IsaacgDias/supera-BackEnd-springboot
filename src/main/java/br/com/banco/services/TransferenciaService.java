@@ -16,7 +16,7 @@ public class TransferenciaService {
     public TransferenciaService(TransferenciaRepository transferenciaRepository) {
         this.transferenciaRepository = transferenciaRepository;
     }
-    //Between = SELECT * FROM tabela WHERE coluna BETWEEN valor_minimo AND valor_maximo; usado para verificar se algo estar dentro de um intervalo
+
     public List<Transferencia> buscarTransferenciasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
         return transferenciaRepository.findByDataTransferenciaBetween(dataInicial, dataFinal);
     }
@@ -26,4 +26,7 @@ public class TransferenciaService {
     }
 
 
+    public List<Transferencia> buscarTodosFiltros(LocalDateTime dataInicial, LocalDateTime dataFinal, String nomeOperadorTransacao) {
+        return transferenciaRepository.findByFiltros(dataInicial, dataFinal, nomeOperadorTransacao);
+    }
 }
