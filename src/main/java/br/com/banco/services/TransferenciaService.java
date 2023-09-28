@@ -20,4 +20,10 @@ public class TransferenciaService {
     public List<Transferencia> buscarTransferenciasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal) {
         return transferenciaRepository.findByDataTransferenciaBetween(dataInicial, dataFinal);
     }
+
+    public List<Transferencia> buscarTransferenciasDoOperador(String nomeOperadorTransacao) {
+        return transferenciaRepository.findByNomeOperadorTransacao(nomeOperadorTransacao);
+    }
+
+
 }

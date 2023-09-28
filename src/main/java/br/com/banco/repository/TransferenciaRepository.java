@@ -11,4 +11,6 @@ import java.util.List;
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long> {
 
     List<Transferencia> findByDataTransferenciaBetween(LocalDateTime dataInicial, LocalDateTime dataFinal);
+
+    List<Transferencia> findByNomeOperadorTransacao(String nomeOperadorTransacao);
 }

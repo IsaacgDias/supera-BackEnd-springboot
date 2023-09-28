@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
 
@@ -61,6 +63,16 @@ class BancoApplicationTests {
         //Verifica se o getStatusCode = HttpStatus.Ok
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 
+    }
+
+    @Test
+    public void testBuscarTransferenciasDoOperador() throws Exception {
+        // Realiza a solicitação GET para o endpoint com o parâmetro
+        mockMvc.perform(MockMvcRequestBuilders.get("/operador")
+                        .param("nomeOperadorTransacao", "Beltrano"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(1)) // Verifica se o JSON tem um elemento
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].nomeOperadorTransacao").value("Beltrano")); // Verifica se o Json tem o campo Beltrano
     }
 
 }

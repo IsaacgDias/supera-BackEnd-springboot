@@ -37,7 +37,8 @@ public class BancoController {
 
     //@RequestParam("dataInical") para extrair parâmetros da URL
     //@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) para especificar o formato esperado para as datas com o formato ISO 8601
-    @GetMapping("/por-periodo")
+    // Retornar todas as transferências relacionadas à aquele período de tempo
+    @GetMapping("/por-periodo") //  chave = dataInicial valor = 2019-01-01T00:00:00 / chave = dataFinal valor = 2019-05-30T23:59:59
     public List<Transferencia> buscarTransferênciasPorPeriodo(
             @RequestParam("dataInicial") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
             @RequestParam("dataFinal") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal) {
@@ -45,5 +46,10 @@ public class BancoController {
         return transferenciaService.buscarTransferenciasPorPeriodo(dataInicial, dataFinal);
     }
 
+    // Realiza a consulta da transferencia pelo nome do operador
+    @GetMapping("/operador") // /operador?nomeOperadorTransacao=Beltrano
+    public List<Transferencia> buscarTransferenciasDoOperador(@RequestParam String nomeOperadorTransacao) {
+        return transferenciaService.buscarTransferenciasDoOperador(nomeOperadorTransacao);
+    }
 
 }
